@@ -1,9 +1,30 @@
+# Welcome to Sonic Pi
+
 #variables
 heartintro = "C:/Users/Mina_Cooper/Downloads/heartintro.wav"
-r1 = "C:/Users/Mina_Cooper/Downloads/R1.wav"
 r1end = "C:/Users/Mina_Cooper/Downloads/end.wav"
 
 use_synth :pretty_bell
+a = 1
+
+notes = [:cs4, :bs4, :cs4]
+n = 0
+
+define :bgnotes do
+  play notes[n], amp: a
+  sleep 2
+end
+
+live_loop :thirdrow do
+  5.times do
+    5.times do
+      bgnotes
+    end
+    a = a - 0.25
+    n = n + 1
+  end
+  stop
+end
 
 play :b4, sustain: 2, amp: 0.5
 sleep 1
@@ -20,6 +41,7 @@ sample heartintro
 sleep 4
 
 use_bpm 96
+use_synth :pretty_bell
 
 live_loop :firstrow do
   3.times do
