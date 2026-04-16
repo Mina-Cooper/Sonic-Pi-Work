@@ -2,7 +2,6 @@
 
 use_bpm 120
 use_synth :hollow
-#pulse, hollow
 
 crow1 = "C:/Users/Mina_Cooper/Downloads/crow1.wav"
 crow2 = "C:/Users/Mina_Cooper/Downloads/crow2.wav"
@@ -16,16 +15,10 @@ define :changingNotes do |n|
 end
 
 secondRowNotes = [:g3, :b3, :g3, :b2, :b2, :b2, :b2,]
-b = 0
 secondRowSleeps = [2, 2, 2, 1, 1, 1, 1]
-s = 0
+sb = 0
 
-v = 1
-
-sample crow1
-sleep 3
-sample crow2
-sleep 6
+v = 0.1
 
 define :outro do
   play :g4, amp: v
@@ -45,7 +38,13 @@ define :outro do
   sleep 2.5
 end
 
-#put sample here, have it fade in
+#actual song start
+
+sample crow1
+sleep 3
+sample crow2
+sleep 6
+
 sleep 4
 
 live_loop :row1 do
@@ -135,16 +134,14 @@ live_loop :row2 do
   3.times do
     #all four measures
     7.times do
-      play secondRowNotes[b]
-      sleep secondRowSleeps[s]
-      b = b + 1
-      s = s + 1
+      play secondRowNotes[sb]
+      sleep secondRowSleeps[sb]
+      sb = sb + 1
       
-      play :f3
+      play :f3, amp: 0.7
       sleep 2
     end
-    b = 0
-    s = 0
+    sb = 0
   end
   stop
 end
@@ -156,7 +153,7 @@ use_synth :rodeo
 live_loop :outroNotes do
   3.times do
     outro
-    v = v - 0.25
+    v = v - 0.03
   end
   stop
 end
